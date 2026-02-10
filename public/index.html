@@ -1,0 +1,1538 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="theme-color" content="#0a0a0a" />
+  <title>ALTAI — Дровяные печи с живым огнём</title>
+  <meta name="description" content="ALTAI — дровяные печи с живым огнём, круглым корпусом и увеличенным сроком службы. Производим в Новосибирске. Подбираем и монтируем под ключ." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Playfair+Display:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+  <style>
+    /* ===== RESET & BASE ===== */
+    *, *::before, *::after {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    :root {
+      --bg: #0a0a0a;
+      --bg-card: #121212;
+      --bg-elevated: #1a1a1a;
+      --text: #ede8e3;
+      --text-muted: #8c8c8c;
+      --accent: #f07c22;
+      --accent-hover: #d96a14;
+      --border: #242424;
+      --border-light: #1e1e1e;
+      --font-body: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+      --font-heading: 'Playfair Display', Georgia, serif;
+    }
+
+    html {
+      scroll-behavior: smooth;
+      -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
+    }
+
+    body {
+      background-color: var(--bg);
+      color: var(--text);
+      font-family: var(--font-body);
+      line-height: 1.6;
+      overflow-x: hidden;
+    }
+
+    a {
+      text-decoration: none;
+      color: inherit;
+    }
+
+    img {
+      display: block;
+      max-width: 100%;
+      height: auto;
+    }
+
+    ul {
+      list-style: none;
+    }
+
+    button, input, textarea {
+      font-family: inherit;
+      font-size: inherit;
+      border: none;
+      outline: none;
+      background: none;
+      color: inherit;
+    }
+
+    .container {
+      max-width: 1280px;
+      margin: 0 auto;
+      padding: 0 24px;
+    }
+
+    .sr-only {
+      position: absolute;
+      width: 1px;
+      height: 1px;
+      padding: 0;
+      margin: -1px;
+      overflow: hidden;
+      clip: rect(0,0,0,0);
+      white-space: nowrap;
+      border-width: 0;
+    }
+
+    /* ===== HEADER ===== */
+    .header {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      z-index: 100;
+      background: rgba(10, 10, 10, 0.82);
+      backdrop-filter: blur(16px);
+      -webkit-backdrop-filter: blur(16px);
+      border-bottom: 1px solid var(--border-light);
+    }
+
+    .header__inner {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 18px 24px;
+      max-width: 1280px;
+      margin: 0 auto;
+    }
+
+    .header__logo {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .header__logo svg {
+      width: 28px;
+      height: 28px;
+      color: var(--accent);
+    }
+
+    .header__logo-text {
+      font-family: var(--font-heading);
+      font-size: 22px;
+      font-weight: 700;
+      letter-spacing: 3px;
+      color: var(--text);
+    }
+
+    .header__nav {
+      display: flex;
+      align-items: center;
+      gap: 36px;
+    }
+
+    .header__nav a {
+      font-size: 11px;
+      text-transform: uppercase;
+      letter-spacing: 3px;
+      color: var(--text-muted);
+      transition: color 0.3s ease;
+    }
+
+    .header__nav a:hover {
+      color: var(--accent);
+    }
+
+    .header__cta {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      border: 1px solid rgba(240, 124, 34, 0.5);
+      color: var(--accent);
+      padding: 10px 22px;
+      font-size: 11px;
+      text-transform: uppercase;
+      letter-spacing: 3px;
+      transition: all 0.3s ease;
+      cursor: pointer;
+    }
+
+    .header__cta:hover {
+      background: var(--accent);
+      color: var(--bg);
+    }
+
+    .header__burger {
+      display: none;
+      background: none;
+      border: none;
+      cursor: pointer;
+      color: var(--text);
+    }
+
+    .header__burger svg {
+      width: 26px;
+      height: 26px;
+    }
+
+    .header__mobile-menu {
+      display: none;
+      flex-direction: column;
+      gap: 16px;
+      padding: 20px 24px 24px;
+      background: var(--bg);
+      border-top: 1px solid var(--border-light);
+    }
+
+    .header__mobile-menu.active {
+      display: flex;
+    }
+
+    .header__mobile-menu a {
+      font-size: 12px;
+      text-transform: uppercase;
+      letter-spacing: 2.5px;
+      color: var(--text-muted);
+      transition: color 0.3s ease;
+    }
+
+    .header__mobile-menu a:hover {
+      color: var(--accent);
+    }
+
+    @media (max-width: 768px) {
+      .header__nav { display: none; }
+      .header__cta-desktop { display: none; }
+      .header__burger { display: block; }
+    }
+
+    /* ===== HERO ===== */
+    .hero {
+      position: relative;
+      height: 100vh;
+      min-height: 600px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      overflow: hidden;
+    }
+
+    .hero__bg {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      z-index: 0;
+    }
+
+    .hero__overlay {
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(
+        to bottom,
+        rgba(10,10,10,0.7) 0%,
+        rgba(10,10,10,0.35) 40%,
+        rgba(10,10,10,1) 100%
+      );
+      z-index: 1;
+    }
+
+    .hero__content {
+      position: relative;
+      z-index: 2;
+      text-align: center;
+      padding: 0 24px;
+      max-width: 860px;
+    }
+
+    .hero__tag {
+      display: inline-block;
+      font-size: 12px;
+      text-transform: uppercase;
+      letter-spacing: 6px;
+      color: var(--accent);
+      margin-bottom: 28px;
+    }
+
+    .hero__title {
+      font-family: var(--font-heading);
+      font-size: clamp(40px, 8vw, 96px);
+      font-weight: 700;
+      line-height: 1.05;
+      color: var(--text);
+      text-wrap: balance;
+    }
+
+    .hero__desc {
+      margin-top: 24px;
+      font-size: 18px;
+      color: var(--text-muted);
+      max-width: 640px;
+      margin-left: auto;
+      margin-right: auto;
+      line-height: 1.7;
+    }
+
+    .hero__buttons {
+      margin-top: 44px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 16px;
+      flex-wrap: wrap;
+    }
+
+    .btn-primary {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      background: var(--accent);
+      color: var(--bg);
+      padding: 16px 36px;
+      font-size: 12px;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 3px;
+      transition: all 0.3s ease;
+      cursor: pointer;
+    }
+
+    .btn-primary:hover {
+      background: var(--accent-hover);
+    }
+
+    .btn-outline {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      border: 1px solid rgba(237, 232, 227, 0.15);
+      color: var(--text);
+      padding: 16px 36px;
+      font-size: 12px;
+      font-weight: 500;
+      text-transform: uppercase;
+      letter-spacing: 3px;
+      transition: all 0.3s ease;
+      cursor: pointer;
+    }
+
+    .btn-outline:hover {
+      border-color: var(--accent);
+      color: var(--accent);
+    }
+
+    .hero__scroll {
+      position: absolute;
+      bottom: 40px;
+      left: 50%;
+      transform: translateX(-50%);
+      z-index: 2;
+      animation: bounce 2s infinite;
+    }
+
+    .hero__scroll svg {
+      width: 24px;
+      height: 24px;
+      color: var(--text-muted);
+    }
+
+    @keyframes bounce {
+      0%, 100% { transform: translateX(-50%) translateY(0); }
+      50% { transform: translateX(-50%) translateY(10px); }
+    }
+
+    /* ===== SECTION SHARED ===== */
+    .section {
+      padding: 100px 0;
+    }
+
+    .section--alt {
+      background: rgba(255,255,255,0.02);
+    }
+
+    .section__tag {
+      font-size: 12px;
+      text-transform: uppercase;
+      letter-spacing: 6px;
+      color: var(--accent);
+      margin-bottom: 16px;
+    }
+
+    .section__title {
+      font-family: var(--font-heading);
+      font-size: clamp(32px, 5vw, 60px);
+      font-weight: 700;
+      line-height: 1.1;
+      color: var(--text);
+      text-wrap: balance;
+    }
+
+    .section__desc {
+      margin-top: 20px;
+      font-size: 17px;
+      color: var(--text-muted);
+      max-width: 640px;
+      line-height: 1.7;
+    }
+
+    .section__header {
+      text-align: center;
+      margin-bottom: 64px;
+    }
+
+    .section__header .section__desc {
+      margin-left: auto;
+      margin-right: auto;
+    }
+
+    /* ===== ADVANTAGES ===== */
+    .advantages__grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 1px;
+      background: var(--border-light);
+    }
+
+    .advantage {
+      background: var(--bg);
+      padding: 40px;
+      transition: background 0.4s ease;
+    }
+
+    .advantage:hover {
+      background: var(--bg-card);
+    }
+
+    .advantage__icon {
+      width: 36px;
+      height: 36px;
+      color: var(--accent);
+      margin-bottom: 24px;
+      transition: transform 0.3s ease;
+    }
+
+    .advantage:hover .advantage__icon {
+      transform: scale(1.12);
+    }
+
+    .advantage__title {
+      font-family: var(--font-heading);
+      font-size: 20px;
+      font-weight: 600;
+      color: var(--text);
+      margin-bottom: 12px;
+    }
+
+    .advantage__text {
+      font-size: 14px;
+      color: var(--text-muted);
+      line-height: 1.65;
+    }
+
+    @media (max-width: 1024px) {
+      .advantages__grid { grid-template-columns: repeat(2, 1fr); }
+    }
+
+    @media (max-width: 640px) {
+      .advantages__grid { grid-template-columns: 1fr; }
+      .advantage { padding: 32px 24px; }
+    }
+
+    /* ===== PRODUCTS ===== */
+    .products__grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 24px;
+    }
+
+    .product-card {
+      background: var(--bg-card);
+      border: 1px solid var(--border-light);
+      overflow: hidden;
+      transition: border-color 0.4s ease;
+    }
+
+    .product-card:hover {
+      border-color: rgba(240, 124, 34, 0.35);
+    }
+
+    .product-card__img-wrap {
+      position: relative;
+      aspect-ratio: 4 / 5;
+      overflow: hidden;
+    }
+
+    .product-card__img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      transition: transform 0.7s ease;
+    }
+
+    .product-card:hover .product-card__img {
+      transform: scale(1.06);
+    }
+
+    .product-card__img-overlay {
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(to top, var(--bg-card) 0%, transparent 60%);
+    }
+
+    .product-card__badge {
+      position: absolute;
+      top: 16px;
+      left: 16px;
+      background: var(--accent);
+      color: var(--bg);
+      font-size: 10px;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 2.5px;
+      padding: 6px 14px;
+    }
+
+    .product-card__body {
+      padding: 24px;
+    }
+
+    .product-card__name {
+      font-family: var(--font-heading);
+      font-size: 20px;
+      font-weight: 600;
+      color: var(--text);
+      margin-bottom: 8px;
+    }
+
+    .product-card__price {
+      display: flex;
+      align-items: baseline;
+      gap: 6px;
+      margin-bottom: 16px;
+    }
+
+    .product-card__price-value {
+      font-size: 26px;
+      font-weight: 700;
+      color: var(--accent);
+    }
+
+    .product-card__price-unit {
+      font-size: 13px;
+      color: var(--text-muted);
+    }
+
+    .product-card__specs {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 6px;
+      margin-bottom: 16px;
+    }
+
+    .product-card__spec {
+      font-size: 13px;
+      color: var(--text-muted);
+    }
+
+    .product-card__spec-label {
+      color: rgba(237, 232, 227, 0.45);
+    }
+
+    .product-card__features {
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+      margin-bottom: 24px;
+    }
+
+    .product-card__feature {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      font-size: 13px;
+      color: var(--text-muted);
+    }
+
+    .product-card__feature svg {
+      width: 16px;
+      height: 16px;
+      color: var(--accent);
+      flex-shrink: 0;
+    }
+
+    .product-card__btn {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      width: 100%;
+      padding: 14px;
+      border: 1px solid var(--border);
+      font-size: 12px;
+      text-transform: uppercase;
+      letter-spacing: 2.5px;
+      color: var(--text);
+      transition: all 0.3s ease;
+      cursor: pointer;
+    }
+
+    .product-card__btn:hover {
+      background: var(--accent);
+      border-color: var(--accent);
+      color: var(--bg);
+    }
+
+    .product-card__btn svg {
+      width: 16px;
+      height: 16px;
+    }
+
+    @media (max-width: 1024px) {
+      .products__grid { grid-template-columns: repeat(2, 1fr); }
+    }
+
+    @media (max-width: 640px) {
+      .products__grid { grid-template-columns: 1fr; max-width: 420px; margin: 0 auto; }
+    }
+
+    /* ===== ABOUT ===== */
+    .about__grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 80px;
+      align-items: center;
+    }
+
+    .about__stats {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 24px;
+      margin-top: 36px;
+    }
+
+    .stat {
+      border-left: 2px solid rgba(240, 124, 34, 0.35);
+      padding-left: 16px;
+    }
+
+    .stat__value {
+      font-family: var(--font-heading);
+      font-size: 32px;
+      font-weight: 700;
+      color: var(--text);
+    }
+
+    .stat__label {
+      font-size: 13px;
+      color: var(--text-muted);
+      margin-top: 4px;
+    }
+
+    .about__services {
+      display: flex;
+      flex-direction: column;
+      gap: 20px;
+    }
+
+    .service-card {
+      background: var(--bg-card);
+      border: 1px solid var(--border-light);
+      padding: 32px;
+      transition: border-color 0.4s ease;
+    }
+
+    .service-card:hover {
+      border-color: rgba(240, 124, 34, 0.25);
+    }
+
+    .service-card__inner {
+      display: flex;
+      align-items: flex-start;
+      gap: 20px;
+    }
+
+    .service-card__icon-wrap {
+      flex-shrink: 0;
+      width: 48px;
+      height: 48px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: rgba(240, 124, 34, 0.08);
+    }
+
+    .service-card__icon-wrap svg {
+      width: 24px;
+      height: 24px;
+      color: var(--accent);
+    }
+
+    .service-card__title {
+      font-family: var(--font-heading);
+      font-size: 18px;
+      font-weight: 600;
+      color: var(--text);
+      margin-bottom: 8px;
+    }
+
+    .service-card__text {
+      font-size: 14px;
+      color: var(--text-muted);
+      line-height: 1.6;
+    }
+
+    @media (max-width: 1024px) {
+      .about__grid { grid-template-columns: 1fr; gap: 48px; }
+    }
+
+    /* ===== CONTACT ===== */
+    .contact__grid {
+      display: grid;
+      grid-template-columns: 3fr 2fr;
+      gap: 48px;
+    }
+
+    .contact-form {
+      background: var(--bg-card);
+      border: 1px solid var(--border-light);
+      padding: 40px;
+    }
+
+    .contact-form__row {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 24px;
+    }
+
+    .contact-form__group {
+      margin-bottom: 24px;
+    }
+
+    .contact-form__label {
+      display: block;
+      font-size: 11px;
+      text-transform: uppercase;
+      letter-spacing: 2.5px;
+      color: var(--text-muted);
+      margin-bottom: 10px;
+    }
+
+    .contact-form__input,
+    .contact-form__textarea {
+      width: 100%;
+      background: rgba(255,255,255,0.03);
+      border: 1px solid var(--border-light);
+      color: var(--text);
+      padding: 14px 18px;
+      font-size: 14px;
+      transition: border-color 0.3s ease;
+    }
+
+    .contact-form__input::placeholder,
+    .contact-form__textarea::placeholder {
+      color: rgba(140, 140, 140, 0.45);
+    }
+
+    .contact-form__input:focus,
+    .contact-form__textarea:focus {
+      border-color: var(--accent);
+    }
+
+    .contact-form__textarea {
+      resize: none;
+      min-height: 120px;
+    }
+
+    .contact-form__submit {
+      width: 100%;
+      background: var(--accent);
+      color: var(--bg);
+      padding: 16px;
+      font-size: 12px;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 3px;
+      cursor: pointer;
+      transition: background 0.3s ease;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+    }
+
+    .contact-form__submit:hover {
+      background: var(--accent-hover);
+    }
+
+    .contact-form__submit svg {
+      width: 16px;
+      height: 16px;
+    }
+
+    .contact__sidebar {
+      display: flex;
+      flex-direction: column;
+      gap: 24px;
+    }
+
+    .contact-info {
+      background: var(--bg-card);
+      border: 1px solid var(--border-light);
+      padding: 32px;
+    }
+
+    .contact-info__title {
+      font-family: var(--font-heading);
+      font-size: 18px;
+      font-weight: 600;
+      color: var(--text);
+      margin-bottom: 24px;
+    }
+
+    .contact-info__items {
+      display: flex;
+      flex-direction: column;
+      gap: 20px;
+    }
+
+    .contact-info__item {
+      display: flex;
+      align-items: flex-start;
+      gap: 14px;
+    }
+
+    .contact-info__item svg {
+      width: 20px;
+      height: 20px;
+      color: var(--accent);
+      flex-shrink: 0;
+      margin-top: 2px;
+    }
+
+    .contact-info__item-main {
+      font-weight: 500;
+      color: var(--text);
+      font-size: 15px;
+    }
+
+    .contact-info__item-sub {
+      font-size: 13px;
+      color: var(--text-muted);
+      margin-top: 2px;
+    }
+
+    .contact-consult {
+      background: var(--bg-card);
+      border: 1px solid rgba(240, 124, 34, 0.18);
+      padding: 32px;
+    }
+
+    .contact-consult__title {
+      font-family: var(--font-heading);
+      font-size: 18px;
+      font-weight: 600;
+      color: var(--text);
+      margin-bottom: 12px;
+    }
+
+    .contact-consult__text {
+      font-size: 14px;
+      color: var(--text-muted);
+      line-height: 1.6;
+      margin-bottom: 16px;
+    }
+
+    .contact-consult__link {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 12px;
+      text-transform: uppercase;
+      letter-spacing: 2.5px;
+      color: var(--accent);
+      transition: opacity 0.3s;
+    }
+
+    .contact-consult__link:hover {
+      opacity: 0.8;
+    }
+
+    .contact-consult__link svg {
+      width: 16px;
+      height: 16px;
+    }
+
+    @media (max-width: 1024px) {
+      .contact__grid { grid-template-columns: 1fr; }
+    }
+
+    @media (max-width: 640px) {
+      .contact-form { padding: 24px; }
+      .contact-form__row { grid-template-columns: 1fr; }
+    }
+
+    /* ===== SUCCESS MESSAGE ===== */
+    .form-success {
+      background: var(--bg-card);
+      border: 1px solid rgba(240, 124, 34, 0.25);
+      padding: 64px 40px;
+      text-align: center;
+      display: none;
+    }
+
+    .form-success.active {
+      display: block;
+    }
+
+    .form-success__icon {
+      width: 64px;
+      height: 64px;
+      margin: 0 auto 24px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: rgba(240, 124, 34, 0.08);
+      border-radius: 50%;
+    }
+
+    .form-success__icon svg {
+      width: 32px;
+      height: 32px;
+      color: var(--accent);
+    }
+
+    .form-success__title {
+      font-family: var(--font-heading);
+      font-size: 24px;
+      font-weight: 600;
+      color: var(--text);
+      margin-bottom: 12px;
+    }
+
+    .form-success__text {
+      color: var(--text-muted);
+      font-size: 15px;
+    }
+
+    /* ===== FOOTER ===== */
+    .footer {
+      background: var(--bg-card);
+      border-top: 1px solid var(--border-light);
+      padding: 56px 0 0;
+    }
+
+    .footer__grid {
+      display: grid;
+      grid-template-columns: 1.5fr 1fr 1fr 1fr;
+      gap: 40px;
+      margin-bottom: 48px;
+    }
+
+    .footer__brand-desc {
+      font-size: 14px;
+      color: var(--text-muted);
+      line-height: 1.65;
+      margin-top: 16px;
+    }
+
+    .footer__logo {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .footer__logo svg {
+      width: 24px;
+      height: 24px;
+      color: var(--accent);
+    }
+
+    .footer__logo-text {
+      font-family: var(--font-heading);
+      font-size: 18px;
+      font-weight: 700;
+      letter-spacing: 3px;
+      color: var(--text);
+    }
+
+    .footer__heading {
+      font-size: 11px;
+      text-transform: uppercase;
+      letter-spacing: 3px;
+      font-weight: 600;
+      color: var(--text);
+      margin-bottom: 16px;
+    }
+
+    .footer__links {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+
+    .footer__links a,
+    .footer__links li {
+      font-size: 14px;
+      color: var(--text-muted);
+      transition: color 0.3s;
+    }
+
+    .footer__links a:hover {
+      color: var(--accent);
+    }
+
+    .footer__bottom {
+      border-top: 1px solid var(--border-light);
+      padding: 28px 0;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .footer__bottom p {
+      font-size: 12px;
+      color: var(--text-muted);
+    }
+
+    @media (max-width: 768px) {
+      .footer__grid { grid-template-columns: 1fr 1fr; }
+      .footer__bottom { flex-direction: column; gap: 8px; text-align: center; }
+    }
+
+    @media (max-width: 480px) {
+      .footer__grid { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- ===== HEADER ===== -->
+  <header class="header">
+    <div class="header__inner">
+      <a href="#" class="header__logo">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M8.5 14.5A2.5 2.5 0 0 0 11 12c0-1.38-.5-2-1-3-1.072-2.143-.224-4.054 2-6 .5 2.5 2 4.9 4 6.5 2 1.6 3 3.5 3 5.5a7 7 0 1 1-14 0c0-1.153.433-2.294 1-3a2.5 2.5 0 0 0 2.5 2.5z"/></svg>
+        <span class="header__logo-text">ALTAI</span>
+      </a>
+
+      <nav class="header__nav">
+        <a href="#advantages">Преимущества</a>
+        <a href="#products">Модели</a>
+        <a href="#about">О производстве</a>
+        <a href="#contact">Контакты</a>
+      </nav>
+
+      <a href="#contact" class="header__cta header__cta-desktop">Связаться</a>
+
+      <button class="header__burger" aria-label="Открыть меню" onclick="toggleMenu()">
+        <svg id="burger-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="4" x2="20" y1="6" y2="6"/><line x1="4" x2="20" y1="12" y2="12"/><line x1="4" x2="20" y1="18" y2="18"/></svg>
+        <svg id="close-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="display:none"><path d="M18 6 6 18"/><path d="m6 6 12 12"/></svg>
+      </button>
+    </div>
+
+    <div class="header__mobile-menu" id="mobileMenu">
+      <a href="#advantages" onclick="closeMenu()">Преимущества</a>
+      <a href="#products" onclick="closeMenu()">Модели</a>
+      <a href="#about" onclick="closeMenu()">О производстве</a>
+      <a href="#contact" onclick="closeMenu()">Контакты</a>
+      <a href="#contact" class="header__cta" onclick="closeMenu()">Связаться</a>
+    </div>
+  </header>
+
+  <!-- ===== HERO ===== -->
+  <section class="hero">
+    <img src="/images/hero-bg.jpg" alt="Печь ALTAI в интерьере сауны" class="hero__bg" />
+    <div class="hero__overlay"></div>
+    <div class="hero__content">
+      <span class="hero__tag">Дровяные печи нового поколения</span>
+      <h1 class="hero__title">Живой огонь. Безупречная форма.</h1>
+      <p class="hero__desc">
+        ALTAI — дровяные печи с панорамным стеклом, круглым корпусом
+        и увеличенным сроком службы. Производим в Новосибирске.
+      </p>
+      <div class="hero__buttons">
+        <a href="#products" class="btn-primary">Смотреть модели</a>
+        <a href="#advantages" class="btn-outline">Узнать больше</a>
+      </div>
+    </div>
+    <a href="#advantages" class="hero__scroll" aria-label="Прокрутить вниз">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 5v14"/><path d="m19 12-7 7-7-7"/></svg>
+    </a>
+  </section>
+
+  <!-- ===== ADVANTAGES ===== -->
+  <section class="section" id="advantages">
+    <div class="container">
+      <div class="section__header">
+        <p class="section__tag">Почему ALTAI</p>
+        <h2 class="section__title">Инженерные решения, а не маркетинг</h2>
+        <p class="section__desc">Каждая деталь печей ALTAI продумана для долговечности, безопасности и настоящего банного удовольствия.</p>
+      </div>
+
+      <div class="advantages__grid">
+        <div class="advantage">
+          <svg class="advantage__icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M2.062 12.348a1 1 0 0 1 0-.696 10.75 10.75 0 0 1 19.876 0 1 1 0 0 1 0 .696 10.75 10.75 0 0 1-19.876 0"/><circle cx="12" cy="12" r="3"/></svg>
+          <h3 class="advantage__title">Панорамная дверца</h3>
+          <p class="advantage__text">Жаропрочное стекло и направленная подача воздуха — огонь всегда виден, стекло дольше остаётся прозрачным.</p>
+        </div>
+        <div class="advantage">
+          <svg class="advantage__icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/></svg>
+          <h3 class="advantage__title">Круглый корпус</h3>
+          <p class="advantage__text">Минимум сварных швов, равномерное распределение тепла. Снижен риск прогорания — выше срок службы.</p>
+        </div>
+        <div class="advantage">
+          <svg class="advantage__icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 13c0 5-3.5 7.5-7.66 8.95a1 1 0 0 1-.67-.01C7.5 20.5 4 18 4 13V6a1 1 0 0 1 1-1c2 0 4.5-1.2 6.24-2.72a1.17 1.17 0 0 1 1.52 0C14.51 3.81 17 5 19 5a1 1 0 0 1 1 1z"/></svg>
+          <h3 class="advantage__title">Долговечность</h3>
+          <p class="advantage__text">Нет углов с локальным перегревом. Меньше деформаций. Рассчитана на многолетнюю эксплуатацию.</p>
+        </div>
+        <div class="advantage">
+          <svg class="advantage__icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M8.5 14.5A2.5 2.5 0 0 0 11 12c0-1.38-.5-2-1-3-1.072-2.143-.224-4.054 2-6 .5 2.5 2 4.9 4 6.5 2 1.6 3 3.5 3 5.5a7 7 0 1 1-14 0c0-1.153.433-2.294 1-3a2.5 2.5 0 0 0 2.5 2.5z"/></svg>
+          <h3 class="advantage__title">Большая каменка</h3>
+          <p class="advantage__text">Камни прогреваются со всех сторон. Мягкий, насыщенный, долгоиграющий пар для классической бани.</p>
+        </div>
+        <div class="advantage">
+          <svg class="advantage__icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 10v.2A3 3 0 0 1 8.9 16H5a3 3 0 0 1-1-5.8V10a3 3 0 0 1 6 0z"/><path d="M7 16v6"/><path d="M13 19v3"/><path d="M16 10v.2a3 3 0 0 1 2.1 5.8H21a3 3 0 0 1 1-5.8V10a3 3 0 0 1-6 0z"/><path d="M19 16v6"/><path d="M12 2v8"/></svg>
+          <h3 class="advantage__title">Только дрова</h3>
+          <p class="advantage__text">Никакой электроники. Автономность, надёжность, настоящий банный огонь и аромат дров.</p>
+        </div>
+        <div class="advantage">
+          <svg class="advantage__icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14.7 6.3a1 1 0 0 0 0 1.4l1.6 1.6a1 1 0 0 0 1.4 0l3.77-3.77a6 6 0 0 1-7.94 7.94l-6.91 6.91a2.12 2.12 0 0 1-3-3l6.91-6.91a6 6 0 0 1 7.94-7.94l-3.76 3.76z"/></svg>
+          <h3 class="advantage__title">Выносная топка</h3>
+          <p class="advantage__text">Модели с выносной и встроенной топкой. Топите из комнаты отдыха — парная остаётся чистой.</p>
+        </div>
+        <div class="advantage">
+          <svg class="advantage__icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect width="16" height="20" x="4" y="2" rx="2"/><path d="M9 22v-4h6v4"/><path d="M8 6h.01"/><path d="M16 6h.01"/><path d="M12 6h.01"/><path d="M12 10h.01"/><path d="M12 14h.01"/><path d="M16 10h.01"/><path d="M16 14h.01"/><path d="M8 10h.01"/><path d="M8 14h.01"/></svg>
+          <h3 class="advantage__title">Для любых бань</h3>
+          <p class="advantage__text">Частные и коммерческие бани, гостевые сауны. Подбор под объём парной.</p>
+        </div>
+        <div class="advantage">
+          <svg class="advantage__icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 10c0 4.993-5.539 10.193-7.399 11.799a1 1 0 0 1-1.202 0C9.539 20.193 4 14.993 4 10a8 8 0 0 1 16 0"/><circle cx="12" cy="10" r="3"/></svg>
+          <h3 class="advantage__title">Сделано в Новосибирске</h3>
+          <p class="advantage__text">Российское производство. Контроль качества, быстрая коммуникация, понятные сроки.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== PRODUCTS ===== -->
+  <section class="section section--alt" id="products">
+    <div class="container">
+      <div class="section__header">
+        <p class="section__tag">Каталог</p>
+        <h2 class="section__title">Наши модели</h2>
+        <p class="section__desc">Подберите печь под объём вашей парной. От компактных до коммерческих решений.</p>
+      </div>
+
+      <div class="products__grid">
+
+        <!-- Product 1 -->
+        <div class="product-card">
+          <div class="product-card__img-wrap">
+            <img src="/images/stove-1.jpg" alt="Печь ALTAI Compact 12" class="product-card__img" />
+            <div class="product-card__img-overlay"></div>
+            <span class="product-card__badge">Хит продаж</span>
+          </div>
+          <div class="product-card__body">
+            <h3 class="product-card__name">ALTAI Compact 12</h3>
+            <div class="product-card__price">
+              <span class="product-card__price-value">42 900</span>
+              <span class="product-card__price-unit">руб.</span>
+            </div>
+            <div class="product-card__specs">
+              <div class="product-card__spec"><span class="product-card__spec-label">Объём:</span> 8-14 м&#179;</div>
+              <div class="product-card__spec"><span class="product-card__spec-label">Мощность:</span> 12 кВт</div>
+              <div class="product-card__spec"><span class="product-card__spec-label">Вес:</span> 48 кг</div>
+            </div>
+            <ul class="product-card__features">
+              <li class="product-card__feature">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg>
+                Панорамное стекло
+              </li>
+              <li class="product-card__feature">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg>
+                Круглый корпус
+              </li>
+              <li class="product-card__feature">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg>
+                Каменка 40 кг
+              </li>
+            </ul>
+            <a href="#contact" class="product-card__btn">
+              Подробнее
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>
+            </a>
+          </div>
+        </div>
+
+        <!-- Product 2 -->
+        <div class="product-card">
+          <div class="product-card__img-wrap">
+            <img src="/images/stove-2.jpg" alt="Печь ALTAI Panorama 18" class="product-card__img" />
+            <div class="product-card__img-overlay"></div>
+          </div>
+          <div class="product-card__body">
+            <h3 class="product-card__name">ALTAI Panorama 18</h3>
+            <div class="product-card__price">
+              <span class="product-card__price-value">59 500</span>
+              <span class="product-card__price-unit">руб.</span>
+            </div>
+            <div class="product-card__specs">
+              <div class="product-card__spec"><span class="product-card__spec-label">Объём:</span> 12-22 м&#179;</div>
+              <div class="product-card__spec"><span class="product-card__spec-label">Мощность:</span> 18 кВт</div>
+              <div class="product-card__spec"><span class="product-card__spec-label">Вес:</span> 65 кг</div>
+            </div>
+            <ul class="product-card__features">
+              <li class="product-card__feature">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg>
+                Выносная топка
+              </li>
+              <li class="product-card__feature">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg>
+                Увеличенное стекло
+              </li>
+              <li class="product-card__feature">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg>
+                Каменка 80 кг
+              </li>
+            </ul>
+            <a href="#contact" class="product-card__btn">
+              Подробнее
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>
+            </a>
+          </div>
+        </div>
+
+        <!-- Product 3 -->
+        <div class="product-card">
+          <div class="product-card__img-wrap">
+            <img src="/images/stove-3.jpg" alt="Печь ALTAI Classic 15" class="product-card__img" />
+            <div class="product-card__img-overlay"></div>
+            <span class="product-card__badge">Новинка</span>
+          </div>
+          <div class="product-card__body">
+            <h3 class="product-card__name">ALTAI Classic 15</h3>
+            <div class="product-card__price">
+              <span class="product-card__price-value">51 200</span>
+              <span class="product-card__price-unit">руб.</span>
+            </div>
+            <div class="product-card__specs">
+              <div class="product-card__spec"><span class="product-card__spec-label">Объём:</span> 10-18 м&#179;</div>
+              <div class="product-card__spec"><span class="product-card__spec-label">Мощность:</span> 15 кВт</div>
+              <div class="product-card__spec"><span class="product-card__spec-label">Вес:</span> 55 кг</div>
+            </div>
+            <ul class="product-card__features">
+              <li class="product-card__feature">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg>
+                Встроенная топка
+              </li>
+              <li class="product-card__feature">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg>
+                Панорамное стекло
+              </li>
+              <li class="product-card__feature">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg>
+                Каменка 60 кг
+              </li>
+            </ul>
+            <a href="#contact" class="product-card__btn">
+              Подробнее
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>
+            </a>
+          </div>
+        </div>
+
+        <!-- Product 4 -->
+        <div class="product-card">
+          <div class="product-card__img-wrap">
+            <img src="/images/stove-4.jpg" alt="Печь ALTAI Grand 24" class="product-card__img" />
+            <div class="product-card__img-overlay"></div>
+            <span class="product-card__badge">Премиум</span>
+          </div>
+          <div class="product-card__body">
+            <h3 class="product-card__name">ALTAI Grand 24</h3>
+            <div class="product-card__price">
+              <span class="product-card__price-value">78 900</span>
+              <span class="product-card__price-unit">руб.</span>
+            </div>
+            <div class="product-card__specs">
+              <div class="product-card__spec"><span class="product-card__spec-label">Объём:</span> 18-30 м&#179;</div>
+              <div class="product-card__spec"><span class="product-card__spec-label">Мощность:</span> 24 кВт</div>
+              <div class="product-card__spec"><span class="product-card__spec-label">Вес:</span> 82 кг</div>
+            </div>
+            <ul class="product-card__features">
+              <li class="product-card__feature">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg>
+                Выносная топка
+              </li>
+              <li class="product-card__feature">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg>
+                XL панорамное стекло
+              </li>
+              <li class="product-card__feature">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg>
+                Каменка 120 кг
+              </li>
+            </ul>
+            <a href="#contact" class="product-card__btn">
+              Подробнее
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>
+            </a>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== ABOUT ===== -->
+  <section class="section" id="about">
+    <div class="container">
+      <div class="about__grid">
+        <div>
+          <p class="section__tag">О производстве</p>
+          <h2 class="section__title">Печи, которым доверяют</h2>
+          <p class="section__desc">
+            ALTAI — это не просто печи, а продуманная система для вашей бани.
+            Мы проектируем и производим каждую печь на собственном заводе
+            в Новосибирске, контролируя качество на каждом этапе.
+            Совместимость с дымоходами, правильная тяга, безопасная
+            эксплуатация — всё это включено в каждую модель.
+          </p>
+          <div class="about__stats">
+            <div class="stat">
+              <div class="stat__value">10+</div>
+              <div class="stat__label">Лет на рынке</div>
+            </div>
+            <div class="stat">
+              <div class="stat__value">5 000+</div>
+              <div class="stat__label">Установленных печей</div>
+            </div>
+            <div class="stat">
+              <div class="stat__value">50+</div>
+              <div class="stat__label">Городов доставки</div>
+            </div>
+            <div class="stat">
+              <div class="stat__value">100%</div>
+              <div class="stat__label">Российское производство</div>
+            </div>
+          </div>
+        </div>
+
+        <div class="about__services">
+          <div class="service-card">
+            <div class="service-card__inner">
+              <div class="service-card__icon-wrap">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M2 20a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2V8l-7 5V8l-7 5V4a2 2 0 0 0-2-2H4a2 2 0 0 0-2 2z"/></svg>
+              </div>
+              <div>
+                <h3 class="service-card__title">Собственное производство</h3>
+                <p class="service-card__text">Полный цикл: от проектирования до сборки в Новосибирске. Контроль каждого этапа.</p>
+              </div>
+            </div>
+          </div>
+
+          <div class="service-card">
+            <div class="service-card__inner">
+              <div class="service-card__icon-wrap">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 18V6a2 2 0 0 0-2-2H4a2 2 0 0 0-2 2v11a1 1 0 0 0 1 1h2"/><path d="M15 18H9"/><path d="M19 18h2a1 1 0 0 0 1-1v-3.65a1 1 0 0 0-.22-.624l-3.48-4.35A1 1 0 0 0 17.52 8H14"/><circle cx="17" cy="18" r="2"/><circle cx="7" cy="18" r="2"/></svg>
+              </div>
+              <div>
+                <h3 class="service-card__title">Доставка по России</h3>
+                <p class="service-card__text">Отправляем транспортными компаниями в любой регион. Надёжная упаковка.</p>
+              </div>
+            </div>
+          </div>
+
+          <div class="service-card">
+            <div class="service-card__inner">
+              <div class="service-card__icon-wrap">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 11h3a2 2 0 0 1 2 2v3a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-5Zm0 0a9 9 0 1 1 18 0m0 0v5a2 2 0 0 1-2 2h-1a2 2 0 0 1-2-2v-3a2 2 0 0 1 2-2h3Z"/></svg>
+              </div>
+              <div>
+                <h3 class="service-card__title">Поддержка и монтаж</h3>
+                <p class="service-card__text">Поможем подобрать печь, дымоход и организуем монтаж под ключ.</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== CONTACT ===== -->
+  <section class="section section--alt" id="contact">
+    <div class="container">
+      <div class="section__header">
+        <p class="section__tag">Свяжитесь с нами</p>
+        <h2 class="section__title">Обсудим ваш проект</h2>
+        <p class="section__desc">Поможем подобрать печь, рассчитаем стоимость и организуем доставку в ваш город.</p>
+      </div>
+
+      <div class="contact__grid">
+        <div>
+          <form class="contact-form" id="contactForm" onsubmit="handleSubmit(event)">
+            <div class="contact-form__row">
+              <div class="contact-form__group">
+                <label for="name" class="contact-form__label">Имя</label>
+                <input type="text" id="name" class="contact-form__input" placeholder="Ваше имя" required />
+              </div>
+              <div class="contact-form__group">
+                <label for="phone" class="contact-form__label">Телефон</label>
+                <input type="tel" id="phone" class="contact-form__input" placeholder="+7 (___) ___-__-__" required />
+              </div>
+            </div>
+            <div class="contact-form__group">
+              <label for="email" class="contact-form__label">E-mail</label>
+              <input type="email" id="email" class="contact-form__input" placeholder="email@example.com" />
+            </div>
+            <div class="contact-form__group">
+              <label for="message" class="contact-form__label">Сообщение</label>
+              <textarea id="message" class="contact-form__textarea" placeholder="Расскажите о вашем проекте: объём парной, тип бани, пожелания..."></textarea>
+            </div>
+            <button type="submit" class="contact-form__submit">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14.536 21.686a.5.5 0 0 0 .937-.024l6.5-19a.496.496 0 0 0-.635-.635l-19 6.5a.5.5 0 0 0-.024.937l7.93 3.18a2 2 0 0 1 1.112 1.11z"/><path d="m21.854 2.147-10.94 10.939"/></svg>
+              Отправить заявку
+            </button>
+          </form>
+
+          <div class="form-success" id="formSuccess">
+            <div class="form-success__icon">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14.536 21.686a.5.5 0 0 0 .937-.024l6.5-19a.496.496 0 0 0-.635-.635l-19 6.5a.5.5 0 0 0-.024.937l7.93 3.18a2 2 0 0 1 1.112 1.11z"/><path d="m21.854 2.147-10.94 10.939"/></svg>
+            </div>
+            <h3 class="form-success__title">Заявка отправлена</h3>
+            <p class="form-success__text">Мы свяжемся с вами в ближайшее время.</p>
+          </div>
+        </div>
+
+        <div class="contact__sidebar">
+          <div class="contact-info">
+            <h3 class="contact-info__title">Контактная информация</h3>
+            <div class="contact-info__items">
+              <div class="contact-info__item">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
+                <div>
+                  <div class="contact-info__item-main">+7 (383) 123-45-67</div>
+                  <div class="contact-info__item-sub">Пн-Пт, 9:00 - 18:00</div>
+                </div>
+              </div>
+              <div class="contact-info__item">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect width="20" height="16" x="2" y="4" rx="2"/><path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"/></svg>
+                <div>
+                  <div class="contact-info__item-main">info@altai-pechi.ru</div>
+                  <div class="contact-info__item-sub">Ответим в течение дня</div>
+                </div>
+              </div>
+              <div class="contact-info__item">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 10c0 4.993-5.539 10.193-7.399 11.799a1 1 0 0 1-1.202 0C9.539 20.193 4 14.993 4 10a8 8 0 0 1 16 0"/><circle cx="12" cy="10" r="3"/></svg>
+                <div>
+                  <div class="contact-info__item-main">г. Новосибирск</div>
+                  <div class="contact-info__item-sub">ул. Промышленная, 12</div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="contact-consult">
+            <h3 class="contact-consult__title">Бесплатная консультация</h3>
+            <p class="contact-consult__text">
+              Не знаете, какую модель выбрать? Наши специалисты помогут
+              подобрать идеальную печь под ваш проект бани.
+            </p>
+            <a href="tel:+73831234567" class="contact-consult__link">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
+              Позвонить сейчас
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== FOOTER ===== -->
+  <footer class="footer">
+    <div class="container">
+      <div class="footer__grid">
+        <div>
+          <div class="footer__logo">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M8.5 14.5A2.5 2.5 0 0 0 11 12c0-1.38-.5-2-1-3-1.072-2.143-.224-4.054 2-6 .5 2.5 2 4.9 4 6.5 2 1.6 3 3.5 3 5.5a7 7 0 1 1-14 0c0-1.153.433-2.294 1-3a2.5 2.5 0 0 0 2.5 2.5z"/></svg>
+            <span class="footer__logo-text">ALTAI</span>
+          </div>
+          <p class="footer__brand-desc">Дровяные печи с живым огнём и увеличенным сроком службы. Производим в Новосибирске.</p>
+        </div>
+
+        <div>
+          <h4 class="footer__heading">Навигация</h4>
+          <ul class="footer__links">
+            <li><a href="#advantages">Преимущества</a></li>
+            <li><a href="#products">Модели</a></li>
+            <li><a href="#about">О производстве</a></li>
+            <li><a href="#contact">Контакты</a></li>
+          </ul>
+        </div>
+
+        <div>
+          <h4 class="footer__heading">Модели</h4>
+          <ul class="footer__links">
+            <li><a href="#products">ALTAI Compact 12</a></li>
+            <li><a href="#products">ALTAI Panorama 18</a></li>
+            <li><a href="#products">ALTAI Classic 15</a></li>
+            <li><a href="#products">ALTAI Grand 24</a></li>
+          </ul>
+        </div>
+
+        <div>
+          <h4 class="footer__heading">Контакты</h4>
+          <ul class="footer__links">
+            <li>+7 (383) 123-45-67</li>
+            <li>info@altai-pechi.ru</li>
+            <li>г. Новосибирск</li>
+            <li>ул. Промышленная, 12</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="footer__bottom">
+        <p>&copy; 2026 ALTAI. Все права защищены.</p>
+        <p>Дровяные печи для бани и сауны</p>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    // Mobile menu
+    function toggleMenu() {
+      const menu = document.getElementById('mobileMenu');
+      const burger = document.getElementById('burger-icon');
+      const close = document.getElementById('close-icon');
+      const isOpen = menu.classList.contains('active');
+
+      menu.classList.toggle('active');
+      burger.style.display = isOpen ? 'block' : 'none';
+      close.style.display = isOpen ? 'none' : 'block';
+    }
+
+    function closeMenu() {
+      const menu = document.getElementById('mobileMenu');
+      const burger = document.getElementById('burger-icon');
+      const close = document.getElementById('close-icon');
+      menu.classList.remove('active');
+      burger.style.display = 'block';
+      close.style.display = 'none';
+    }
+
+    // Contact form
+    function handleSubmit(e) {
+      e.preventDefault();
+      document.getElementById('contactForm').style.display = 'none';
+      document.getElementById('formSuccess').classList.add('active');
+    }
+  </script>
+
+</body>
+</html>
